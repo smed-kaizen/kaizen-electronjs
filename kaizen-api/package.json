@@ -1,0 +1,73 @@
+{
+  "name": "kaizen-api",
+  "description": "",
+  "version": "0.0.0",
+  "homepage": "",
+  "private": true,
+  "main": "src",
+  "keywords": [
+    "feathers"
+  ],
+  "author": {
+    "name": "mohammed",
+    "email": "slimani.med.21@gmail.com"
+  },
+  "contributors": [],
+  "bugs": {},
+  "directories": {
+    "lib": "src",
+    "test": "test/",
+    "config": "config/"
+  },
+  "engines": {
+    "node": "^12.0.0",
+    "yarn": ">= 0.18.0"
+  },
+  "scripts": {
+    "test": "yarn run lint && yarn run compile && yarn run mocha",
+    "lint": "eslint src/. test/. --config .eslintrc.json --ext .ts --fix",
+    "dev": "ts-node-dev --no-notify src/",
+    "start": "yarn run compile && node lib/",
+    "mocha": "ts-mocha \"test/**/*.ts\" --recursive --exit",
+    "compile": "shx rm -rf lib/ && tsc"
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ],
+    "ignore": []
+  },
+  "types": "lib/",
+  "dependencies": {
+    "@feathersjs/configuration": "^4.5.9",
+    "@feathersjs/errors": "^4.5.9",
+    "@feathersjs/express": "^4.5.9",
+    "@feathersjs/feathers": "^4.5.9",
+    "@feathersjs/transport-commons": "^4.5.11",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "feathers-sequelize": "^6.2.0",
+    "helmet": "^4.2.0",
+    "sequelize": "^6.3.5",
+    "serve-favicon": "^2.5.0",
+    "sqlite3": "^5.0.0",
+    "winston": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.35",
+    "@types/compression": "^1.7.0",
+    "@types/cors": "^2.8.10",
+    "@types/helmet": "^4.0.0",
+    "@types/serve-favicon": "^2.5.2",
+    "@types/validator": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "axios": "^0.21.1",
+    "eslint": "^7.13.0",
+    "mocha": "^8.2.1",
+    "shx": "^0.3.3",
+    "ts-mocha": "^8.0.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.0.5"
+  }
+}
