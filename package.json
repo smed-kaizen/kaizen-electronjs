@@ -45,6 +45,7 @@
   "devDependencies": {
     "electron": "13.1.4"
   },
-  "main": "src/electron-starter.ts",
+  "productName": "Kaisen",
+  "main": "electron/main.ts",
   "homepage": "./"
 }
