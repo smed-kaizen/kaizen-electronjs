@@ -1,4 +1,5 @@
 {
   "host": "kaizen-app.feathersjs.com",
-  "port": "PORT"
+  "port": 3030,
+  "sqlite": "sqlite://kaizen.sqlite"
 }
