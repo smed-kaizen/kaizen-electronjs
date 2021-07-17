@@ -1,53 +1,59 @@
 {
   "name": "kaizen",
-  "version": "0.1.0",
+  "description": "Get better everyday",
+  "version": "0.0.0",
+  "homepage": "",
   "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.11.4",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "sass": "^1.35.1",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+  "main": "electron/main.js",
+  "keywords": [
+    "feathers"
+  ],
+  "author": {
+    "name": "mohammed",
+    "email": "slimani.med.21@gmail.com"
+  },
+  "contributors": [],
+  "bugs": {},
+  "directories": {
+    "lib": "server",
+    "test": "test/",
+    "config": "config/"
+  },
+  "engines": {
+    "node": "^12.0.0",
+    "yarn": ">= 0.18.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron": "electron ."
+    "test": "yarn run lint && yarn run mocha",
+    "lint": "eslint server/. test/. --config .eslintrc.json --fix",
+    "dev": "nodemon server/",
+    "start": "node server/",
+    "mocha": "mocha test/ --recursive --exit",
+    "electron-dev": "electron ."
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+  "standard": {
+    "env": [
+      "mocha"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "ignore": []
+  },
+  "dependencies": {
+    "@feathersjs/configuration": "^4.5.9",
+    "@feathersjs/errors": "^4.5.9",
+    "@feathersjs/express": "^4.5.9",
+    "@feathersjs/feathers": "^4.5.9",
+    "@feathersjs/transport-commons": "^4.5.11",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "electron": "^13.1.7",
+    "helmet": "^4.2.0",
+    "serve-favicon": "^2.5.0",
+    "winston": "^3.0.0"
   },
   "devDependencies": {
-    "electron": "13.1.4"
-  },
-  "productName": "Kaisen",
-  "main": "electron/main.ts",
-  "homepage": "./"
+    "axios": "^0.21.1",
+    "eslint": "^7.13.0",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.6"
+  }
 }
