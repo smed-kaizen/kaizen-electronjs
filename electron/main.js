@@ -1,6 +1,6 @@
-
 const { app, BrowserWindow, ipcMain } = require('electron')
-
+const isDev = require("electron-is-dev");
+const path = require('path')
 const server = require('../server/app')
 
 for(const service in server.services) {
@@ -59,7 +59,7 @@ function createWindow () {
   })
 
   //load the index.html from a url
-  win.loadURL('http://localhost:3000');
+  win.loadURL(isDev? 'http://localhost:3000' : `file://${path.join(__dirname, "../ui/build/index.html")}` );
 
   // Open the DevTools.
   win.webContents.openDevTools()
