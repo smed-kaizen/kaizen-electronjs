@@ -38,6 +38,7 @@ module.exports = function (app) {
         options.raw = true;
       },
       async beforeSave(instance, options) {
+        instance.title = instance.title.trim()
         const TODAY_START = new Date().setHours(0, 0, 0, 0);
         const NOW = new Date();
         const sameTitleExists = await tasks.findAll({
@@ -46,7 +47,7 @@ module.exports = function (app) {
               [Op.gte]: TODAY_START,
               [Op.lte]: NOW
             },
-            title: instance.title
+            title: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('title')), 'LIKE', instance.title)
           }})
         if (sameTitleExists.length > 0) {
           throw new BadRequest('You already have a task with this name for today')
