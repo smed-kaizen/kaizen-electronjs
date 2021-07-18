@@ -21,10 +21,9 @@
   },
   "scripts": {
     "lint": "eslint server/. test/. --config .eslintrc.json --fix",
-    "dev": "nodemon server/",
-    "start": "node server/",
-    "test": "cross-env NODE_ENV=test mocha --require test/setup/setup.js --recursive --exit test/",
-    "electron-dev": "electron ."
+    "mocha": "cross-env NODE_ENV=test mocha --require test/setup/setup.js --recursive --exit test/",
+    "test": "yarn lint && yarn mocha",
+    "dev": "electron ."
   },
   "build": {
     "appId": "com.kaizen.app",

@@ -1,5 +1,3 @@
-const path = require('path');
-const favicon = require('serve-favicon');
 const compress = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -35,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.configure(express.rest());
 
 // making te logger available globally in the app object
-app.logger = logger
+app.logger = logger;
 
 app.configure(sequelize);
 

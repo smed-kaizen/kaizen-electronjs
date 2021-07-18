@@ -42,18 +42,20 @@ module.exports = function (app) {
       beforeCount(options){
         options.raw = true;
       },
+      // eslint-disable-next-line no-unused-vars
       async beforeSave(instance, options) {
         instance.title = instance.title.trim();
-        const sameTitleExistsToday = await instance.titleExistsInSameDay()
+        const sameTitleExistsToday = await instance.titleExistsInSameDay();
         if (sameTitleExistsToday) {
           throw new BadRequest('You already have a task with this name for today');
         }
       },
+      // eslint-disable-next-line no-unused-vars
       async beforeUpdate(instance, options){
         await this.beforeSave(instance, options);
       },
       async beforeBulkUpdate (args) {
-        args.individualHooks = true
+        args.individualHooks = true;
       }
     }
   });
@@ -76,8 +78,8 @@ module.exports = function (app) {
         title: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('title')), 'LIKE', this.title)
       }});
 
-    return sameTitleExists.length > 0
-  }
+    return sameTitleExists.length > 0;
+  };
 
   return tasks;
 };
