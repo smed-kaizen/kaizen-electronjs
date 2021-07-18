@@ -2,8 +2,8 @@
 // for more of what you can do here.
 const Sequelize = require('sequelize');
 const DataTypes = Sequelize.DataTypes;
-const Op = Sequelize.Op
-const { BadRequest } = require('@feathersjs/errors')
+const Op = Sequelize.Op;
+const { BadRequest } = require('@feathersjs/errors');
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
@@ -13,7 +13,7 @@ module.exports = function (app) {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: 'Should not be empty'
+          msg: 'Title should not be empty'
         }
       }
     },
@@ -38,7 +38,7 @@ module.exports = function (app) {
         options.raw = true;
       },
       async beforeSave(instance, options) {
-        instance.title = instance.title.trim()
+        instance.title = instance.title.trim();
         const TODAY_START = new Date().setHours(0, 0, 0, 0);
         const NOW = new Date();
         const sameTitleExists = await tasks.findAll({
@@ -48,13 +48,13 @@ module.exports = function (app) {
               [Op.lte]: NOW
             },
             title: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('title')), 'LIKE', instance.title)
-          }})
+          }});
         if (sameTitleExists.length > 0) {
-          throw new BadRequest('You already have a task with this name for today')
+          throw new BadRequest('You already have a task with this name for today');
         }
       },
       beforeUpdate(instance, options){
-        return this.beforeSave(instance, options)
+        return this.beforeSave(instance, options);
       }
     }
   });

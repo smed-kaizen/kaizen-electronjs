@@ -34,6 +34,8 @@ app.use(express.urlencoded({ extended: true }));
 // Set up Plugins and providers
 app.configure(express.rest());
 
+// making te logger available globally in the app object
+app.logger = logger
 
 app.configure(sequelize);
 

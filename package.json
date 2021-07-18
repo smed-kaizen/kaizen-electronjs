@@ -20,11 +20,10 @@
     "yarn": ">= 0.18.0"
   },
   "scripts": {
-    "test": "yarn run lint && yarn run mocha",
     "lint": "eslint server/. test/. --config .eslintrc.json --fix",
     "dev": "nodemon server/",
     "start": "node server/",
-    "mocha": "mocha test/ --recursive --exit",
+    "test": "cross-env NODE_ENV=test mocha --require test/setup/setup.js --recursive --exit test/",
     "electron-dev": "electron ."
   },
   "build": {
