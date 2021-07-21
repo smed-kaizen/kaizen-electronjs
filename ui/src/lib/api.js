@@ -29,7 +29,7 @@ export function editTask (taskId, taskData) {
  * @return {*}
  */
 export function deleteTask (taskId) {
-  return callApi(window.api.send('tasks', 'delete', taskId))
+  return callApi(window.api.send('tasks', 'remove', taskId))
 }
 
 /**

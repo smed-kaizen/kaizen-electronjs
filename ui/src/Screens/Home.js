@@ -12,7 +12,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
 import Divider from '@material-ui/core/Divider';
-import { findTasksOfDay, createTask } from '../lib/api'
+import { findTasksOfDay, createTask, deleteTask } from '../lib/api'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Modal from '@material-ui/core/Modal';
 import FiberNewIcon from '@material-ui/icons/FiberNew';
@@ -72,6 +72,16 @@ export default function (props) {
     })
   }
 
+  const deleteExistingTask = (task) =>{
+    deleteTask(task.id).then(() => {
+      updateTodayTaskList()
+      setNewTaskModalOpen(false)
+      resetTaskValues()
+    }).catch(err => {
+      console.log('Error Deleting task', err)
+    })
+  }
+
   const matchColorWithDifficulty = (difficulty) => {
     switch (difficulty) {
       case 'easy':
@@ -102,7 +112,8 @@ export default function (props) {
               />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="delete" onClick={() => {
-                  console.log('Delete Task', task)
+                  console.log('Delete Task', task);
+                  deleteExistingTask(task)
                 }}>
                   <DeleteIcon />
                 </IconButton>
