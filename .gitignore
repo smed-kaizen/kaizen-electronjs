@@ -110,7 +110,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Others
-lib/
 data/
 
 kaizen.sqlite
