@@ -30,7 +30,7 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       validate: {
         isIn: {
-          args: ['easy',  'medium', 'hard'],
+          args: [['easy',  'medium', 'hard']],
           msg: 'The difficulty should be either easy, medium or hard'
         }
       },

@@ -63,7 +63,7 @@ export function findTasksOfDay (date) {
     }
   }
 
-  return this.findTasks(query)
+  return findTasks(query)
 }
 
 /**
