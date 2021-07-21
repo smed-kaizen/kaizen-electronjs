@@ -23,29 +23,7 @@ describe('Feathers application tests', () => {
     server.close(done);
   });
 
-  it('starts and shows the index page', async () => {
-    const { data } = await axios.get(getUrl());
-
-    assert.ok(data.indexOf('<html lang="en">') !== -1);
-  });
-
   describe('404', function() {
-    it('shows a 404 HTML page', async () => {
-      try {
-        await axios.get(getUrl('path/to/nowhere'), {
-          headers: {
-            'Accept': 'text/html'
-          }
-        });
-        assert.fail('should never get here');
-      } catch (error) {
-        const { response } = error;
-
-        assert.equal(response.status, 404);
-        assert.ok(response.data.indexOf('<html>') !== -1);
-      }
-    });
-
     it('shows a 404 JSON error without stack trace', async () => {
       try {
         await axios.get(getUrl('path/to/nowhere'), {

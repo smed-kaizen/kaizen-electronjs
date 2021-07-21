@@ -2,8 +2,8 @@
 // for more of what you can do here.
 const Sequelize = require('sequelize');
 const DataTypes = Sequelize.DataTypes;
-const Op = Sequelize.Op
-const { BadRequest } = require('@feathersjs/errors')
+const Op = Sequelize.Op;
+const { BadRequest } = require('@feathersjs/errors');
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
@@ -13,9 +13,14 @@ module.exports = function (app) {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: 'Should not be empty'
+          msg: 'Title should not be empty'
         }
       }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.NOW
     },
     doneAt: {
       type: DataTypes.DATE,
@@ -25,7 +30,7 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       validate: {
         isIn: {
-          args: ['easy',  'medium', 'hard'],
+          args: [['easy',  'medium', 'hard']],
           msg: 'The difficulty should be either easy, medium or hard'
         }
       },
@@ -37,24 +42,20 @@ module.exports = function (app) {
       beforeCount(options){
         options.raw = true;
       },
+      // eslint-disable-next-line no-unused-vars
       async beforeSave(instance, options) {
-        instance.title = instance.title.trim()
-        const TODAY_START = new Date().setHours(0, 0, 0, 0);
-        const NOW = new Date();
-        const sameTitleExists = await tasks.findAll({
-          where: {
-            createdAt: {
-              [Op.gte]: TODAY_START,
-              [Op.lte]: NOW
-            },
-            title: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('title')), 'LIKE', instance.title)
-          }})
-        if (sameTitleExists.length > 0) {
-          throw new BadRequest('You already have a task with this name for today')
+        instance.title = instance.title.trim();
+        const sameTitleExistsToday = await instance.titleExistsInSameDay();
+        if (sameTitleExistsToday) {
+          throw new BadRequest('You already have a task with this name for today');
         }
       },
-      beforeUpdate(instance, options){
-        return this.beforeSave(instance, options)
+      // eslint-disable-next-line no-unused-vars
+      async beforeUpdate(instance, options){
+        await this.beforeSave(instance, options);
+      },
+      async beforeBulkUpdate (args) {
+        args.individualHooks = true;
       }
     }
   });
@@ -63,6 +64,21 @@ module.exports = function (app) {
   tasks.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+  };
+
+  tasks.prototype.titleExistsInSameDay = async function () {
+    const TASK_DAY_START = new Date(this.createdAt).setHours(0, 0, 0, 0);
+    const TASK_DAY_END = new Date(TASK_DAY_START).setHours(23,59, 59, 999);
+    const sameTitleExists = await tasks.findAll({
+      where: {
+        createdAt: {
+          [Op.gte]: TASK_DAY_START,
+          [Op.lte]: TASK_DAY_END
+        },
+        title: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('title')), 'LIKE', this.title)
+      }});
+
+    return sameTitleExists.length > 0;
   };
 
   return tasks;

@@ -1,1 +1,3 @@
-{}
+{
+  "sqlite": "sqlite://kaizen.test.sqlite"
+}

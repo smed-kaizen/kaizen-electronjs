@@ -1,10 +1,9 @@
 import './App.css';
 import Routes from "./components/Routes";
+import NavBar from "./components/NavBar";
+import React from "react";
 
-// console.log('window api', window.api)
-// window.api.receive('api_failed', (event, args) => {
-//   console.log('Failed', event, args)
-// })
+
 
 window.api.send('tasks', 'create', null, { title: 'asd' })
   .then(res => {
@@ -15,7 +14,10 @@ window.api.send('tasks', 'create', null, { title: 'asd' })
 
 function App() {
   return (
+    <>
+      <NavBar/>
       <Routes/>
+    </>
   );
 }
 
