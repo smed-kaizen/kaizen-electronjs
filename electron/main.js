@@ -48,8 +48,10 @@ function createWindow () {
   // Create the browser window.
   console.log('PReload', __dirname + '/preload.js')
   const win = new BrowserWindow({
+    autoHideMenuBar: true,
     width: 800,
     height: 600,
+    icon: path.join(__dirname, '../src/images/logo.png'),
     webPreferences: {
       nodeIntegration: false, // is default value after Electron v5
       contextIsolation: true, // protect against prototype pollution
