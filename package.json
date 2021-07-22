@@ -19,10 +19,13 @@
     "yarn": ">= 0.18.0"
   },
   "scripts": {
+    "install-all": "yarn --cwd ./ui install && yarn install",
     "lint": "eslint server/. test/. --config .eslintrc.json --fix",
     "mocha": "cross-env NODE_ENV=test mocha --require test/setup/setup.js --recursive --exit test/",
     "test": "yarn lint && yarn mocha",
-    "dev": "electron ."
+    "electron-start": "electron .",
+    "ui-start": "cross-env BROWSER=none yarn --cwd ./ui start",
+    "start": "concurrently \"yarn ui-start\" \"wait-on http://localhost:3000 && yarn electron-start\""
   },
   "build": {
     "appId": "com.kaizen.app",
@@ -54,12 +57,14 @@
   },
   "devDependencies": {
     "axios": "^0.21.1",
+    "concurrently": "^6.2.0",
     "cross-env": "^7.0.3",
     "electron": "^13.1.7",
     "electron-builder": "^22.11.7",
     "eslint": "^7.13.0",
     "faker": "^5.5.3",
     "mocha": "^8.2.1",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "wait-on": "^6.0.0"
   }
 }

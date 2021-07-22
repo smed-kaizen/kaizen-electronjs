@@ -46,10 +46,14 @@ const errorProneCall = async promise => {
 
 function createWindow () {
   // Create the browser window.
-  console.log('PReload', __dirname + '/preload.js')
   const win = new BrowserWindow({
-    width: 800,
+    autoHideMenuBar: true,
+    width: 500,
+    minWidth: 450,
+    maxWidth: 600,
+    minHeight: 600,
     height: 600,
+    icon: path.join(__dirname, '../src/images/logo.png'),
     webPreferences: {
       nodeIntegration: false, // is default value after Electron v5
       contextIsolation: true, // protect against prototype pollution
@@ -60,9 +64,6 @@ function createWindow () {
 
   //load the index.html from a url
   win.loadURL(isDev? 'http://localhost:3000' : `file://${path.join(__dirname, "../ui/build/index.html")}` );
-
-  // Open the DevTools.
-  win.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
