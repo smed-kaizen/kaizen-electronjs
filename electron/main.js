@@ -46,10 +46,12 @@ const errorProneCall = async promise => {
 
 function createWindow () {
   // Create the browser window.
-  console.log('PReload', __dirname + '/preload.js')
   const win = new BrowserWindow({
     autoHideMenuBar: true,
-    width: 800,
+    width: 500,
+    minWidth: 450,
+    maxWidth: 600,
+    minHeight: 600,
     height: 600,
     icon: path.join(__dirname, '../src/images/logo.png'),
     webPreferences: {
@@ -62,9 +64,6 @@ function createWindow () {
 
   //load the index.html from a url
   win.loadURL(isDev? 'http://localhost:3000' : `file://${path.join(__dirname, "../ui/build/index.html")}` );
-
-  // Open the DevTools.
-  win.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
