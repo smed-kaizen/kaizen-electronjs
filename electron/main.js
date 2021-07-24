@@ -53,7 +53,7 @@ function createWindow () {
     maxWidth: 600,
     minHeight: 600,
     height: 600,
-    icon: path.join(__dirname, '../src/images/logo.png'),
+    icon: path.join(__dirname, '../assets/logo.png'),
     webPreferences: {
       nodeIntegration: false, // is default value after Electron v5
       contextIsolation: true, // protect against prototype pollution
