@@ -32,6 +32,16 @@
     "appId": "com.kaizen.app",
     "directories": {
       "output": "packaged"
+    },
+    "mac": {
+      "icon": "assets/logo.png"
+    },
+    "win": {
+      "icon": "assets/logo.png"
+    },
+    "linux": {
+      "icon": "assets/logo.png",
+      "category": "productivity"
     }
   },
   "standard": {
