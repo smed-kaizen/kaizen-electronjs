@@ -25,7 +25,8 @@
     "test": "yarn lint && yarn mocha",
     "electron-start": "electron .",
     "ui-start": "cross-env BROWSER=none yarn --cwd ./ui start",
-    "start": "concurrently \"yarn ui-start\" \"wait-on http://localhost:3000 && yarn electron-start\""
+    "start": "concurrently \"yarn ui-start\" \"wait-on http://localhost:3000 && yarn electron-start\"",
+    "release": "electron-builder"
   },
   "build": {
     "appId": "com.kaizen.app",
