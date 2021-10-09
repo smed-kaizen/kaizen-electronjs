@@ -8,21 +8,21 @@ module.exports = (server) => {
   for(const service in server.services) {
     ipcMain.handle(service, ((event, METHOD, id, data, params) => {
       const calledService = server.services[service]
-      switch(METHOD){
-        case "get":
-          return errorProneCall(calledService.get(id, params))
-        case "find":
-          return errorProneCall(calledService.find(params))
-        case "create":
-          return errorProneCall(calledService.create(data, params))
-        case "update":
-          return errorProneCall(calledService.update(id, data, params))
-        case "patch":
-          return errorProneCall(calledService.patch(id, data, params))
-        case "remove":
-          return errorProneCall(calledService.remove(id, params))
-        default:
-          throw new Error('Method should be either get, find, create, update, patch, remove')
+      switch (METHOD) {
+      case 'get':
+        return errorProneCall(calledService.get(id, params))
+      case 'find':
+        return errorProneCall(calledService.find(params))
+      case 'create':
+        return errorProneCall(calledService.create(data, params))
+      case 'update':
+        return errorProneCall(calledService.update(id, data, params))
+      case 'patch':
+        return errorProneCall(calledService.patch(id, data, params))
+      case 'remove':
+        return errorProneCall(calledService.remove(id, params))
+      default:
+        throw new Error('Method should be either get, find, create, update, patch, remove')
       }
 
     }))

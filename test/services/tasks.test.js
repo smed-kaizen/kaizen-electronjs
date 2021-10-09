@@ -46,28 +46,28 @@ describe('\'tasks\' service', () => {
 
     it('Can update the difficulty of the task', async () => {
       //@Todo: This is not working atm. Fix it <3
-    })
+    });
 
     it('Fails to update to a non correct difficulty', async () => {
-      await assert.rejects(app.service('tasks').patch(task.id, { difficulty: 'Final Boss' }, /The difficulty should be either +./))
-    })
+      await assert.rejects(app.service('tasks').patch(task.id, { difficulty: 'Final Boss' }, /The difficulty should be either +./));
+    });
 
     it('Can create or patch tasks of different difficulties', async () => {
       // Creation of the tasks works well
       const task1 = await app.service('tasks').create({ title: faker.lorem.word(), difficulty: 'medium' });
       let task2 = await app.service('tasks').create({ title: faker.lorem.word(), difficulty: 'hard' });
-      assert(task1.id)
-      assert.strictEqual(task1.difficulty, 'medium')
-      assert(task2.id)
-      assert.strictEqual(task2.difficulty, 'hard')
+      assert(task1.id);
+      assert.strictEqual(task1.difficulty, 'medium');
+      assert(task2.id);
+      assert.strictEqual(task2.difficulty, 'hard');
 
       // The update should work as well
       // await assert.doesNotReject(app.service('tasks').patch(task2.id, { difficulty: 'medium'}))
       // task2 = await app.service('tasks').get(task2.id)
       // assert.strictEqual(task2.difficulty, 'medium')
       // clean up
-      await app.service('tasks').remove(task1.id)
-      await app.service('tasks').remove(task2.id)
+      await app.service('tasks').remove(task1.id);
+      await app.service('tasks').remove(task2.id);
     });
 
     it('Fails to create a task with the same title in the same day, It is case insensitive', async () => {

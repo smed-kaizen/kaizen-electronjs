@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require("electron");
+const { contextBridge, ipcRenderer } = require('electron');
 
 
 // setting up the server and the db
@@ -8,7 +8,7 @@ server.setup()
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
 contextBridge.exposeInMainWorld(
-  "api", {
+  'api', {
     send: (channel, ...args) => {
       // whitelist channels
       let validChannels = Object.keys(server.services)

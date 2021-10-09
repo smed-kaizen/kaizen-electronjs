@@ -20,7 +20,7 @@
   },
   "scripts": {
     "install-all": "yarn --cwd ./ui install && yarn install",
-    "lint": "eslint server/. test/. --config .eslintrc.json --fix",
+    "lint": "eslint server/* test/* electron/* --config .eslintrc.json --fix",
     "mocha": "cross-env NODE_ENV=test mocha --require test/setup/setup.js --recursive --exit test/",
     "test": "yarn lint && yarn mocha",
     "electron-start": "electron .",
