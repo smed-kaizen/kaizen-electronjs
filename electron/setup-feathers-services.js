@@ -6,7 +6,7 @@ const { ipcMain } = require('electron')
  */
 module.exports = (server) => {
   for(const service in server.services) {
-    ipcMain.handle(service, ((event, METHOD, id, data, params) => {
+    ipcMain.handle(service, ((event, { METHOD, id, data, params } = {}) => {
       const calledService = server.services[service]
       switch (METHOD) {
       case 'get':

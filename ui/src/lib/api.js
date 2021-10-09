@@ -9,8 +9,10 @@
  * @return {Promise<*>}
  */
 export function createTask (taskData) {
-  return callApi(window.api.send('tasks', 'create', null, taskData))
+  return callApi(window.api.send('tasks', { METHOD: 'create', data: taskData }))
 }
+
+// { METHOD: 'create', id: , data: , params: }
 
 /**
  *
@@ -19,17 +21,16 @@ export function createTask (taskData) {
  * @return {*}
  */
 export function editTask (taskId, taskData) {
-  return callApi(window.api.send('tasks', 'patch', taskId, taskData))
+  return callApi(window.api.send('tasks', { METHOD: 'patch', id: taskId, data: taskData }))
 }
 
 /**
  * Delete a task by id
  * @param taskId
- * @param taskData
  * @return {*}
  */
 export function deleteTask (taskId) {
-  return callApi(window.api.send('tasks', 'remove', taskId))
+  return callApi(window.api.send('tasks', { METHOD: 'remove', id: taskId }))
 }
 
 /**
@@ -38,7 +39,7 @@ export function deleteTask (taskId) {
  * @return {*}
  */
 export function getTask (taskId) {
-  return callApi(window.api.send('tasks', 'get', taskId))
+  return callApi(window.api.send('tasks', { METHOD: 'get', id: taskId }))
 }
 
 /**
@@ -47,7 +48,7 @@ export function getTask (taskId) {
  * @return {*}
  */
 export function findTasks (query) {
-  return callApi(window.api.send('tasks', 'find', null, null, { query }))
+  return callApi(window.api.send('tasks', { METHOD:'find', params: { query } }))
 }
 
 /**
