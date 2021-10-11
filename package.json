@@ -2,7 +2,7 @@
   "name": "kaizen",
   "description": "Get better everyday",
   "version": "0.0.0",
-  "homepage": "",
+  "homepage": "./",
   "private": true,
   "main": "electron/main.js",
   "keywords": [
@@ -26,23 +26,26 @@
     "electron-start": "electron .",
     "ui-start": "cross-env BROWSER=none yarn --cwd ./ui start",
     "start": "concurrently \"yarn ui-start\" \"wait-on http://localhost:3000 && yarn electron-start\"",
-    "release": "electron-builder"
+    "pack": "yarn --cwd ./ui build && electron-builder --publis=none",
+    "publish": ""
   },
   "build": {
     "appId": "com.kaizen.app",
     "directories": {
-      "output": "packaged"
+      "output": "packaged",
+      "buildResources": "assets"
     },
-    "mac": {
-      "icon": "assets/logo.png"
-    },
-    "win": {
-      "icon": "assets/logo.png"
-    },
-    "linux": {
-      "icon": "assets/logo.png",
-      "category": "productivity"
-    }
+    "extraFiles": [
+      "config"
+    ],
+    "extraResources": [
+      {
+       "from": "./ui/build",
+        "to": "app/ui/build"
+      }
+    ],
+    "icon": "assets/logo.png",
+    "publish": null
   },
   "standard": {
     "env": [
