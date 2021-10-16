@@ -113,3 +113,5 @@ $RECYCLE.BIN/
 data/
 
 kaizen.sqlite
+
+*.tgz

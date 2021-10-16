@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu, Tray, nativeImage } = require('electron')
 const isDev = require('electron-is-dev');
 const path = require('path')
 const setupFeathersServices = require('./setup-feathers-services')
@@ -6,9 +6,39 @@ const server = require('../server/app')
 // Setting up the services in the IPCMain.
 setupFeathersServices(server)
 
+let tray = null
+function createTray () {
+  const icon = path.join(__dirname, 'assets/app.png')
+  const trayIcon = nativeImage.createFromPath(icon)
+  tray = new Tray(trayIcon.resize({ width: 16 }))
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show App',
+      click: () => {
+        createWindow()
+      }
+    },
+    {
+      label: 'Quit',
+      click: () => {
+        app.quit()
+      },
+    }
+  ])
+
+  tray.setToolTip('Kaizen App is running')
+  tray.setContextMenu(contextMenu)
+  console.log('Created the Tray', tray)
+}
+
+
+let win
 function createWindow () {
+  if (!tray) { // if tray hasn't been created already.
+    createTray()
+  }
   // Create the browser window.
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     autoHideMenuBar: true,
     width: 500,
     minWidth: 450,
@@ -24,6 +54,12 @@ function createWindow () {
     }
   })
 
+  win.on('close', (e) => {
+    e.preventDefault()
+    e.returnValue = false
+    win.minimize()
+  })
+
   //load the index.html from a url
   win.loadURL(isDev? 'http://localhost:3000' : `file://${path.join(__dirname, '../ui/build/index.html')}` );
 }
@@ -37,7 +73,9 @@ app.whenReady().then(createWindow)
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+  if (process.platform === 'darwin') {
+    app.dock.hide()
+  } else {
     app.quit()
   }
 })
